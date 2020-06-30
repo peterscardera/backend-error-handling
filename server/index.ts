@@ -7,9 +7,9 @@ import { authRouter } from "./routers/authRouter";
 
 const app = express();
 app.use(bodyParser.json());
-app.use(errorHandler);
 
 app.use("/auth", authRouter);
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log("listening on port 3000");

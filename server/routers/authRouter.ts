@@ -1,8 +1,22 @@
-import express from "express";
-import { handleSignUp } from "./"
+import express, { Request, Response } from "express";
+import { body } from "express-validator";
 
-const router = new express.Router();
+import { handleSignUp } from "../controllers/handleSignUp";
 
-router.post("/signup", handleSignUp);
+const router = express.Router();
+
+router.post(
+  "/signup",
+  [
+    body("email").isEmail().withMessage("email must be in a valid format"),
+    body("password")
+      .trim()
+      .isLength({ min: 6, max: 15 })
+      .withMessage("password must be between 6 to 25 characters"),
+  ],
+  handleSignUp
+);
 
 export { router as authRouter };
+
+
